@@ -15,3 +15,15 @@ def test_add_expense_and_get_balance():
     assert bt.get_balance() == 800
     bt.add_expense(100)
     assert bt.get_balance() == 700
+
+def test_summary_by_category():
+    bt = BudgetTracker()
+    bt.add_income(1000, "Salary")
+    bt.add_income(100, "Gift")
+    bt.add_expense(200, "Food")
+    bt.add_expense(50, "Transport")
+    summary = bt.get_summary_by_category()
+    assert summary["Salary"]["income"] == 1000
+    assert summary["Gift"]["income"] == 100
+    assert summary["Food"]["expense"] == 200
+    assert summary["Transport"]["expense"] == 50
