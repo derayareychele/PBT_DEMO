@@ -98,3 +98,70 @@ def select_category(categories):
                 else:
                     return selected
         print(f"Invalid choice. Please enter a number between 1 and {len(categories)}.")
+    
+    
+def main():
+    income_categories = ["Salary", "Freelance", "Investment", "Gift", "Other"]
+    expense_categories = ["Rent", "Food", "Utilities", "Transport", "Entertainment", "Other"]
+
+    bt = BudgetTracker()
+    print("=== Personal Budget Tracker ===")
+
+    while True:
+        print("\nPlease select an option:")
+        print("1. Add Income")
+        print("2. Add Expense")
+        print("3. View Current Balance")
+        print("4. View Total Income and Expenses")
+        print("5. View Spending Summary by Category")
+        print("6. Exit")
+
+        choice = input("Enter choice (1-6): ").strip()
+
+        if choice == "1":
+            try:
+                amount = float(input("Enter income amount: ").strip())
+                category = select_category(income_categories)
+                bt.add_income(amount, category)
+                print(f"Income of ${amount:.2f} added under category '{category}'.")
+            except ValueError as e:
+                print(f"Invalid input: {e}")
+
+        elif choice == "2":
+            try:
+                amount = float(input("Enter expense amount: ").strip())
+                category = select_category(expense_categories)
+                bt.add_expense(amount, category)
+                print(f"Expense of ${amount:.2f} added under category '{category}'.")
+            except ValueError as e:
+                print(f"Invalid input: {e}")
+
+        elif choice == "3":
+            balance = bt.get_balance()
+            print(f"Current balance: ${balance:.2f}")
+
+        elif choice == "4":
+            total_income = bt.get_total_income()
+            total_expenses = bt.get_total_expenses()
+            print(f"Total Income: ${total_income:.2f}")
+            print(f"Total Expenses: ${total_expenses:.2f}")
+
+        elif choice == "5":
+            summary = bt.get_summary_by_category()
+            if not summary:
+                print("No transactions yet.")
+            else:
+                print("Spending summary by category:")
+                for category, amounts in summary.items():
+                    print(f"  {category}: Income ${amounts['income']:.2f}, Expense ${amounts['expense']:.2f}")
+
+        elif choice == "6":
+            print("Exiting Personal Budget Tracker. Goodbye!")
+            break
+
+        else:
+            print("Invalid choice. Please enter a number between 1 and 6.")
+
+
+if _name_ == "_main_":
+    main()
