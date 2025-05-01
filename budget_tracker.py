@@ -13,3 +13,12 @@ class BudgetTracker:
             "category": category,
             "type": "income"
         })
+
+    def add_expense(self, amount, category="General"):
+        if amount <= 0:
+            raise ValueError("Expense amount must be positive.")
+        self.transactions.append({
+            "amount": amount,
+            "category": category,
+            "type": "expense"
+        })
