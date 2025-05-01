@@ -22,3 +22,8 @@ class BudgetTracker:
             "category": category,
             "type": "expense"
         })
+    
+    def get_balance(self):
+        income = sum(t["amount"] for t in self.transactions if t["type"] == "income")
+        expense = sum(t["amount"] for t in self.transactions if t["type"] == "expense")
+        return income - expense
