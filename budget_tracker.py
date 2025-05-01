@@ -81,3 +81,20 @@ class BudgetTracker:
 
     def get_total_expenses(self):
         return sum(t["amount"] for t in self.transactions if t["type"] == "expense")
+    
+def select_category(categories):
+    print("Please select a category:")
+    for i, cat in enumerate(categories, 1):
+        print(f"  {i}. {cat}")
+    while True:
+        choice = input(f"Enter choice (1-{len(categories)}): ").strip()
+        if choice.isdigit():
+            idx = int(choice)
+            if 1 <= idx <= len(categories):
+                selected = categories[idx-1]
+                if selected == "Other":
+                    custom = input("Enter custom category name: ").strip()
+                    return custom if custom else "Other"
+                else:
+                    return selected
+        print(f"Invalid choice. Please enter a number between 1 and {len(categories)}.")
