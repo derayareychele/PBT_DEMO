@@ -27,3 +27,10 @@ class BudgetTracker:
         income = sum(t["amount"] for t in self.transactions if t["type"] == "income")
         expense = sum(t["amount"] for t in self.transactions if t["type"] == "expense")
         return income - expense
+
+    def get_summary_by_category(self):
+        # returns dict with categories as keys and dict with income and expense totals as values
+        summary = defaultdict(lambda: {"income": 0.0, "expense": 0.0})
+        for t in self.transactions:
+            summary[t["category"]][t["type"]] += t["amount"]
+        return dict(summary)
