@@ -35,3 +35,18 @@ def test_total_income_and_expenses():
     bt.add_expense(100)
     assert bt.get_total_income() == 1000
     assert bt.get_total_expenses() == 100
+
+def test_invalid_income_expense_amount():
+    bt = BudgetTracker()
+    with pytest.raises(ValueError):
+        bt.add_income(-100)
+    with pytest.raises(ValueError):
+        bt.add_expense(0)
+
+def test_balance_after_multiple_transactions():
+    bt = BudgetTracker()
+    bt.add_income(1000)
+    bt.add_expense(200)
+    bt.add_income(300)
+    bt.add_expense(100)
+    assert bt.get_balance() == 1000
