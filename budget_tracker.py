@@ -34,3 +34,9 @@ class BudgetTracker:
         for t in self.transactions:
             summary[t["category"]][t["type"]] += t["amount"]
         return dict(summary)
+    
+    def get_total_income(self):
+        return sum(t["amount"] for t in self.transactions if t["type"] == "income")
+
+    def get_total_expenses(self):
+        return sum(t["amount"] for t in self.transactions if t["type"] == "expense")
