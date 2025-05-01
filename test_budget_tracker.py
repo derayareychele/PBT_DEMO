@@ -27,3 +27,11 @@ def test_summary_by_category():
     assert summary["Gift"]["income"] == 100
     assert summary["Food"]["expense"] == 200
     assert summary["Transport"]["expense"] == 50
+
+def test_total_income_and_expenses():
+    bt = BudgetTracker()
+    bt.add_income(500)
+    bt.add_income(500)
+    bt.add_expense(100)
+    assert bt.get_total_income() == 1000
+    assert bt.get_total_expenses() == 100
